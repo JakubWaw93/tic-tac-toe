@@ -8,12 +8,13 @@ public class GameMechanics {
     private static final int [][] arrayOfFields = new int [3][3];
     private static final int [][] biggerArrayOfFields = new int [10][10];
     private static int turnOfPlayer;
-    private boolean end = false;
+    private static boolean end = false;
     private boolean totalEnd = false;
     private static int winnerPlayer=0;
     private static int player1Points;
     private static int player2Points;
     private static int versionOfGame=0;
+
 
 
     public static int[][] getArrayOfFields() {
@@ -55,11 +56,13 @@ public class GameMechanics {
             int moveI=Integer.parseInt(Console.moveReaderRows())-1;
             int moveJ=Integer.parseInt(Console.moveReaderColumns())-1;
             if (moveI >=0 && moveI <3 && moveJ >=0 && moveJ <3) {
-                if (arrayOfFields[moveI][moveJ] == 0) {
-                    arrayOfFields[moveI][moveJ] = turnOfPlayer;
+                if (getArrayOfFields()[moveI][moveJ] == 0) {
+                    getArrayOfFields()[moveI][moveJ] = turnOfPlayer;
                 } else {
                     throw new NotEmptyFieldException("This field is not empty, You must choose empty field");
                 }
+            }else if (moveI == -1 || moveJ ==-1) {
+                end = true;
             } else {
                 throw new FieldNotFoundException("There is no such field!");
             }
@@ -78,12 +81,14 @@ public class GameMechanics {
                 } else {
                     throw new NotEmptyFieldException("This field is not empty, You must choose empty field");
                 }
+            }else if (moveI == -1 || moveJ ==-1){
+                end=true;
             } else {
                 throw new FieldNotFoundException("There is no such field!");
             }
         } catch (NumberFormatException e){
             Console.numberFormatExceptionMessage();
-            makeAMove();
+            makeAMoveForBiggerMap();
         }
     }
     public void computerMove(){
@@ -350,7 +355,7 @@ public class GameMechanics {
         return versionOfGame;
     }
 
-    public boolean isEnd() {
+    public static boolean isEnd() {
         return end;
     }
 

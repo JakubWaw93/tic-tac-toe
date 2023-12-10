@@ -83,6 +83,7 @@ public class Console {
 
     public static void showInstructions(){
         System.out.println("To choose a field use correct Key: ");
+        System.out.println("Enter 0/0 to exit the game");
         System.out.println("Key 1 - column/row 1");
         System.out.println("Key 2 - column/row 2");
         System.out.println("Key 3 - column/row 3");
@@ -93,6 +94,7 @@ public class Console {
     }
     public static void showInstructionsForBiggerMap(){
         System.out.println("To choose a field use correct Key: ");
+        System.out.println("Enter 0/0 to exit the game");
         System.out.println("Enter 1 - column/row 1");
         System.out.println("Enter 2 - column/row 2");
         System.out.println("Enter 3 - column/row 3");
@@ -144,10 +146,10 @@ public class Console {
         System.out.println(s);
     }
     public static void showPoints() {
-        if (gameMechanics.getNumberOfPlayers() == 1) {
+        if (GameMechanics.getNumberOfPlayers() == 1) {
             System.out.println("Player 1 points: " + GameMechanics.getPlayer1Points() + "\nPlayer 2 points: "
                     + GameMechanics.getPlayer2Points());
-        } else if (gameMechanics.getNumberOfPlayers() == 2){
+        } else if (GameMechanics.getNumberOfPlayers() == 2){
             System.out.println("Player 1 points: " + GameMechanics.getPlayer1Points() + "\nComputer points: "
                     + GameMechanics.getPlayer2Points());
         }
