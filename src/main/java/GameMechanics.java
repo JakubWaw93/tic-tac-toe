@@ -43,7 +43,7 @@ public class GameMechanics {
             if (version == 1 || version == 2) {
                 versionOfGame=version;
             }else{
-                throw new InvalidVersionNumberException("Choose 1 to play classic game, or 2 to play extended version");
+                throw new InvalidVersionNumberException("Invalid number of version was chosen.");
             }
         }catch (NumberFormatException e){
             Console.numberFormatExceptionMessage();
@@ -52,12 +52,18 @@ public class GameMechanics {
     }
 
     public void makeAMove() throws FieldNotFoundException, NotEmptyFieldException {
+        int [][] gameMap=null;
+        if (getVersionOfGame()==1){
+            gameMap=getArrayOfFields();
+        } else if (getVersionOfGame()==2) {
+            gameMap=getBiggerArrayOfFields();
+        }
         try {
             int moveI=Integer.parseInt(Console.moveReaderRows())-1;
             int moveJ=Integer.parseInt(Console.moveReaderColumns())-1;
-            if (moveI >=0 && moveI <3 && moveJ >=0 && moveJ <3) {
-                if (getArrayOfFields()[moveI][moveJ] == 0) {
-                    getArrayOfFields()[moveI][moveJ] = turnOfPlayer;
+            if (moveI >=0 && moveI <gameMap.length && moveJ >=0 && moveJ <gameMap.length) {
+                if (gameMap[moveI][moveJ] == 0) {
+                    gameMap[moveI][moveJ] = turnOfPlayer;
                 } else {
                     throw new NotEmptyFieldException("This field is not empty, You must choose empty field");
                 }
@@ -71,28 +77,8 @@ public class GameMechanics {
             makeAMove();
         }
     }
-    public void makeAMoveForBiggerMap() throws FieldNotFoundException, NotEmptyFieldException {
-        try {
-            int moveI=Integer.parseInt(Console.moveReaderRows())-1;
-            int moveJ=Integer.parseInt(Console.moveReaderColumns())-1;
-            if (moveI >=0 && moveI <biggerArrayOfFields.length && moveJ >=0 && moveJ <biggerArrayOfFields.length) {
-                if (biggerArrayOfFields[moveI][moveJ] == 0) {
-                    biggerArrayOfFields[moveI][moveJ] = turnOfPlayer;
-                } else {
-                    throw new NotEmptyFieldException("This field is not empty, You must choose empty field");
-                }
-            }else if (moveI == -1 || moveJ ==-1){
-                end=true;
-            } else {
-                throw new FieldNotFoundException("There is no such field!");
-            }
-        } catch (NumberFormatException e){
-            Console.numberFormatExceptionMessage();
-            makeAMoveForBiggerMap();
-        }
-    }
     public void computerMove(){
-        Console.sayComputerMove();
+        //Console.sayComputerMove();
         RandomGenerator random = new Random();
         boolean emptyField = false;
         while (!emptyField){
@@ -125,19 +111,6 @@ public class GameMechanics {
             }
         }
     }
-    public void arrayOfMovesForBiggerMap() throws FieldNotFoundException, NotEmptyFieldException {
-        Console.whoseTurn();
-        if (numberOfPlayers==2) {
-            makeAMoveForBiggerMap();
-        } else if (numberOfPlayers==1) {
-            if (turnOfPlayer==1) {
-                makeAMoveForBiggerMap();
-            } else if (turnOfPlayer==2) {
-                computerMove();
-            }
-        }
-    }
-
     public void addingPoint(){
         if (end){
             if (winnerPlayer==1) {
@@ -210,6 +183,12 @@ public class GameMechanics {
     }
 
     public void checkForFullMap(){
+        int[][]arrayOfFields=null;
+        if (versionOfGame==1){
+            arrayOfFields=getArrayOfFields();
+        } else if (versionOfGame==2) {
+            arrayOfFields=getBiggerArrayOfFields();
+        }
         int min=2;
         for (int[] arrayOfField : arrayOfFields) {
             for (int i : arrayOfField) {
@@ -222,20 +201,6 @@ public class GameMechanics {
             end = true;
         }
     }
-    public void checkForFullBiggerMap(){
-        int min=2;
-        for (int[] arrayOfField : biggerArrayOfFields) {
-            for (int i : arrayOfField) {
-                if (i < min) {
-                    min = i;
-                }
-            }
-        }
-        if (min > 0) {
-            end = true;
-        }
-    }
-
     public void singleGameLoop(){
         while (!isEnd()){
             try {
@@ -244,25 +209,14 @@ public class GameMechanics {
                 Console.exceptionMessage(e.getMessage());
                 singleGameLoop();
             }
-            Console.updateConsole();
-            checkForVictory();
+            if (versionOfGame==1) {
+                Console.updateConsole();
+                checkForVictory();
+            } else if (versionOfGame==2) {
+                Console.updateConsoleForBiggerMap();
+                checkForVictoryForBiggerMap();
+            }
             checkForFullMap();
-            if (!isEnd()) {
-                changeTurn();
-            }
-        }
-    }
-    public void singleGameLoopForBiggerMap(){
-        while (!isEnd()){
-            try {
-                arrayOfMovesForBiggerMap();
-            } catch (FieldNotFoundException | NotEmptyFieldException e){
-                Console.exceptionMessage(e.getMessage());
-                singleGameLoopForBiggerMap();
-            }
-            Console.updateConsoleForBiggerMap();
-            checkForVictoryForBiggerMap();
-            checkForFullBiggerMap();
             if (!isEnd()) {
                 changeTurn();
             }
@@ -273,27 +227,12 @@ public class GameMechanics {
             while (!end) {
                 setNewArray();
                 GameMechanics.setTurnOfPlayer(1);
-                Console.showInstructions();
+                if (versionOfGame==1) {
+                    Console.showInstructions();
+                } else if (versionOfGame==2) {
+                    Console.showInstructionsForBiggerMap();
+                }
                 singleGameLoop();
-                Console.showWinner();
-                addingPoint();
-                Console.showPoints();
-            }
-            try {
-                playAgainMechanics();
-            } catch (PlayAgainWrongOptionException e) {
-                Console.exceptionMessage(e.getMessage());
-            }
-        }
-
-    }
-    public void multiGameLoopForBiggerMap(){
-        while (!totalEnd) {
-            while (!end) {
-                setNewBiggerArray();
-                GameMechanics.setTurnOfPlayer(1);
-                Console.showInstructionsForBiggerMap();
-                singleGameLoopForBiggerMap();
                 Console.showWinner();
                 addingPoint();
                 Console.showPoints();
@@ -326,13 +265,10 @@ public class GameMechanics {
         for (int[] arrayOfField : arrayOfFields) {
             Arrays.fill(arrayOfField, 0);
         }
-    }
-    public void setNewBiggerArray() {
         for (int[] arrayOfField : biggerArrayOfFields) {
             Arrays.fill(arrayOfField, 0);
         }
     }
-
     public static int getPlayer1Points() {
         return player1Points;
     }

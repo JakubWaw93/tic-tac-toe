@@ -19,11 +19,9 @@ public class TheGame {
                 game();
             }
         }
-        if (GameMechanics.getVersionOfGame()==1) {
-            gameMechanics.multiGameLoop();
-        }else if(GameMechanics.getVersionOfGame()==2){
-            gameMechanics.multiGameLoopForBiggerMap();
+        gameMechanics.multiGameLoop();
+        if (GameMechanics.isEnd()) {
+            Console.farewell();
         }
-        Console.farewell();
     }
 }

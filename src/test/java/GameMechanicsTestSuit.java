@@ -1,5 +1,6 @@
-import org.junit.jupiter.api.*;
-import org.mockito.Mock;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,7 +16,6 @@ public class GameMechanicsTestSuit {
         @Test
         void winByXInRow1() {
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {2, 2, 2},
@@ -33,7 +33,6 @@ public class GameMechanicsTestSuit {
         @Test
         void winByXInRow2() {
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {0, 0, 0},
@@ -52,7 +51,6 @@ public class GameMechanicsTestSuit {
         @Test
         void winByXInRow3() {
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {0, 0, 0},
@@ -70,7 +68,6 @@ public class GameMechanicsTestSuit {
         @Test
         void winByXInColumn1() {
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {2, 0, 0},
@@ -88,7 +85,6 @@ public class GameMechanicsTestSuit {
         @Test
         void winByXInColumn2() {
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {0, 2, 0},
@@ -106,7 +102,6 @@ public class GameMechanicsTestSuit {
         @Test
         void winByXInColumn3() {
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {0, 0, 2},
@@ -124,7 +119,6 @@ public class GameMechanicsTestSuit {
         @Test
         void winByXDiagonally1() {
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {0, 0, 2},
@@ -142,7 +136,6 @@ public class GameMechanicsTestSuit {
         @Test
         void winByXDiagonally2() {
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {2, 0, 0},
@@ -165,7 +158,6 @@ public class GameMechanicsTestSuit {
         @Test
         void winByOInRow1() {
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {1, 1, 1},
@@ -183,7 +175,6 @@ public class GameMechanicsTestSuit {
         @Test
         void winByOInRow2() {
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {0, 0, 0},
@@ -200,7 +191,6 @@ public class GameMechanicsTestSuit {
         @Test
         void winByOInRow3() {
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {0, 0, 0},
@@ -218,7 +208,6 @@ public class GameMechanicsTestSuit {
         @Test
         void winByOInColumn1() {
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {1, 0, 0},
@@ -236,7 +225,6 @@ public class GameMechanicsTestSuit {
         @Test
         void winByOInColumn2() {
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {0, 1, 0},
@@ -254,7 +242,6 @@ public class GameMechanicsTestSuit {
         @Test
         void winByOInColumn3() {
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {0, 0, 1},
@@ -272,7 +259,6 @@ public class GameMechanicsTestSuit {
         @Test
         void winByODiagonally1() {
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {0, 0, 1},
@@ -290,7 +276,6 @@ public class GameMechanicsTestSuit {
         @Test
         void winByODiagonally2() {
             //Given
-            GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {1, 0, 0},
@@ -310,7 +295,6 @@ public class GameMechanicsTestSuit {
     @Test
     void FullMapTest() {
         //Given
-        GameMechanics gameMechanics = new GameMechanics();
         int winnerPlayer = 0;
         boolean end = false;
         int[][] arrayOfFields = {
@@ -370,12 +354,16 @@ public class GameMechanicsTestSuit {
         void fieldNotFoundExceptionTest() throws FieldNotFoundException, NotEmptyFieldException {
             //Given
             MockedStatic<Console> consoleMock = mockStatic(Console.class);
+            MockedStatic<GameMechanics> gameMechanicsMockedStatic = mockStatic(GameMechanics.class);
             GameMechanics gameMechanics = new GameMechanics();
             when(Console.moveReaderColumns()).thenReturn("22");
             when(Console.moveReaderRows()).thenReturn("4");
+            when(GameMechanics.getVersionOfGame()).thenReturn(1);
+            when(GameMechanics.getArrayOfFields()).thenReturn(new int [3][3] );
             //When&Then
             assertThrows(FieldNotFoundException.class, gameMechanics::makeAMove);
             consoleMock.close();
+            gameMechanicsMockedStatic.close();
         }
         @Test
         void notEmptyFieldExceptionTest() throws FieldNotFoundException, NotEmptyFieldException {
@@ -385,6 +373,7 @@ public class GameMechanicsTestSuit {
             when(Console.moveReaderColumns()).thenReturn("2");
             when(Console.moveReaderRows()).thenReturn("1");
             MockedStatic<GameMechanics> gameMechanicsMockedStatic = mockStatic(GameMechanics.class);
+            when(GameMechanics.getVersionOfGame()).thenReturn(1);
             int[][] arrayOfFields = {
                     {1, 1, 2},
                     {2, 2, 1},
@@ -404,7 +393,6 @@ public class GameMechanicsTestSuit {
         void winByOInRow() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
-            int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {1, 1, 1, 1, 1, 0, 0, 0, 0, 0 },
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -427,18 +415,17 @@ public class GameMechanicsTestSuit {
         void winByXInRow() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
-            int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                    {0, 0, 0, 2, 2, 2, 2, 2, 0, 0 },
+                    {0, 0, 0, 2, 2, 1, 2, 2, 0, 0 },
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+                    {0, 0, 0, 0, 0, 2, 2, 2, 2, 2 }
             };
             MockedStatic<GameMechanics> gameMechanicsMockedStatic = mockStatic(GameMechanics.class);
             when(GameMechanics.getBiggerArrayOfFields()).thenReturn(arrayOfFields);
@@ -450,7 +437,6 @@ public class GameMechanicsTestSuit {
         void winByOInColumn() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
-            int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -473,7 +459,6 @@ public class GameMechanicsTestSuit {
         void winByXInColumn() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
-            int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -496,7 +481,6 @@ public class GameMechanicsTestSuit {
         void winByODiagonally() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
-            int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -519,7 +503,6 @@ public class GameMechanicsTestSuit {
         void winByXDiagonally() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
-            int winnerPlayer = 0;
             int[][] arrayOfFields = {
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },

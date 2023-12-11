@@ -123,7 +123,11 @@ public class Console {
         if (GameMechanics.getTurnOfPlayer()==1) {
             System.out.println("Player's " + GameMechanics.getTurnOfPlayer() + " turn.");
         } else if (GameMechanics.getTurnOfPlayer()==2) {
-            System.out.println("Player's " + GameMechanics.getTurnOfPlayer() + " turn.");
+            if (GameMechanics.getNumberOfPlayers()==2) {
+                System.out.println("Player's " + GameMechanics.getTurnOfPlayer() + " turn.");
+            } else {
+                System.out.println("Computer turn.");
+            }
 
         }
     }
@@ -136,9 +140,9 @@ public class Console {
         return input.nextLine();
     }
 
-    public static void sayComputerMove(){
+    /*public static void sayComputerMove(){
         System.out.println("Computer turn.");
-    }
+    }*/
     public static void numberFormatExceptionMessage(){
         System.out.println("You have to choose a number.");
     }
