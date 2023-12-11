@@ -176,12 +176,13 @@ public class GameMechanics {
         }else if(arrayOfFields[0][0]==arrayOfFields[1][1]&&arrayOfFields[1][1]==arrayOfFields[2][2]&&arrayOfFields[2][2]!=0){
             end=true;
             winnerPlayer=arrayOfFields[0][0];
-        }else if(arrayOfFields[2][0]==arrayOfFields[1][0]&&arrayOfFields[1][0]==arrayOfFields[0][2]&&arrayOfFields[0][2]!=0){
+        }else if(arrayOfFields[2][0]==arrayOfFields[1][1]&&arrayOfFields[1][1]==arrayOfFields[0][2]&&arrayOfFields[0][2]!=0){
             end=true;
             winnerPlayer=arrayOfFields[2][0];
         }
     }
-    public void checkForVictoryForBiggerMap() {
+    public int checkForVictoryForBiggerMap() {
+        int[][] biggerArrayOfFields = getBiggerArrayOfFields();
         for (int k = 0; k < 6; k++) {
             for (int l = 0; l < 6; l++) {
                 for (int i = 0; i < 5; i++) {
@@ -205,7 +206,7 @@ public class GameMechanics {
                 }
             }
 
-        }
+        }return winnerPlayer;
     }
 
     public void checkForFullMap(){
@@ -343,7 +344,7 @@ public class GameMechanics {
     public static int getTurnOfPlayer() {
         return turnOfPlayer;
     }
-    public int getWinnerPlayer() {
+    public static int getWinnerPlayer() {
         return winnerPlayer;
     }
 

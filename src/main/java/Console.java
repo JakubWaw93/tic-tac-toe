@@ -21,9 +21,9 @@ public class Console {
             for (int j = 0; j < fields[i].length; j++) {
                 fieldsMark[i][j]=" ";
                 if (fields[i][j] == 1) {
-                    fieldsMark[i][j] = "X";
-                } else if (fields[i][j] == 2) {
                     fieldsMark[i][j] = "O";
+                } else if (fields[i][j] == 2) {
+                    fieldsMark[i][j] = "X";
                 }
             }
         }
@@ -39,9 +39,9 @@ public class Console {
             for (int j = 0; j < fields[i].length; j++) {
                 fieldsMark[i][j]=" ";
                 if (fields[i][j] == 1) {
-                    fieldsMark[i][j] = "X";
-                } else if (fields[i][j] == 2) {
                     fieldsMark[i][j] = "O";
+                } else if (fields[i][j] == 2) {
+                    fieldsMark[i][j] = "X";
                 }
             }
         }
@@ -88,8 +88,8 @@ public class Console {
         System.out.println("Key 2 - column/row 2");
         System.out.println("Key 3 - column/row 3");
         System.out.println("  | 1 | 2 | 3 |");
-        System.out.println("1 |1.2|1.2|1.3|");
-        System.out.println("2 |2.1|2.1|2.2|");
+        System.out.println("1 |1.1|1.2|1.3|");
+        System.out.println("2 |2.1|2.2|2.3|");
         System.out.println("3 |3.1|3.2|3.3|");
     }
     public static void showInstructionsForBiggerMap(){

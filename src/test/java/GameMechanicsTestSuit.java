@@ -1,6 +1,4 @@
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 
@@ -11,11 +9,11 @@ import static org.mockito.Mockito.when;
 public class GameMechanicsTestSuit {
 
     @Nested
-    @DisplayName("Tests for 'O' wins")
+    @DisplayName("Tests for 'X' wins")
     class TestsOWins {
 
         @Test
-        void winByOInRow1() {
+        void winByXInRow1() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
@@ -33,7 +31,7 @@ public class GameMechanicsTestSuit {
         }
 
         @Test
-        void winByOInRow2() {
+        void winByXInRow2() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
@@ -52,7 +50,7 @@ public class GameMechanicsTestSuit {
 
 
         @Test
-        void winByOInRow3() {
+        void winByXInRow3() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
@@ -70,7 +68,7 @@ public class GameMechanicsTestSuit {
         }
 
         @Test
-        void winByOInColumn1() {
+        void winByXInColumn1() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
@@ -88,7 +86,7 @@ public class GameMechanicsTestSuit {
         }
 
         @Test
-        void winByOInColumn2() {
+        void winByXInColumn2() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
@@ -106,7 +104,7 @@ public class GameMechanicsTestSuit {
         }
 
         @Test
-        void winByOInColumn3() {
+        void winByXInColumn3() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
@@ -124,7 +122,7 @@ public class GameMechanicsTestSuit {
         }
 
         @Test
-        void winByODiagonally1() {
+        void winByXDiagonally1() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
@@ -142,7 +140,7 @@ public class GameMechanicsTestSuit {
         }
 
         @Test
-        void winByODiagonally2() {
+        void winByXDiagonally2() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
@@ -161,11 +159,11 @@ public class GameMechanicsTestSuit {
     }
 
     @Nested
-    @DisplayName("Tests for 'X' wins")
+    @DisplayName("Tests for 'O' wins")
     class TestsXWins {
 
         @Test
-        void winByXInRow1() {
+        void winByOInRow1() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
@@ -183,7 +181,7 @@ public class GameMechanicsTestSuit {
         }
 
         @Test
-        void winByXInRow2() {
+        void winByOInRow2() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
@@ -200,7 +198,7 @@ public class GameMechanicsTestSuit {
         }
 
         @Test
-        void winByXInRow3() {
+        void winByOInRow3() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
@@ -218,7 +216,7 @@ public class GameMechanicsTestSuit {
         }
 
         @Test
-        void winByXInColumn1() {
+        void winByOInColumn1() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
@@ -236,7 +234,7 @@ public class GameMechanicsTestSuit {
         }
 
         @Test
-        void winByXInColumn2() {
+        void winByOInColumn2() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
@@ -254,7 +252,7 @@ public class GameMechanicsTestSuit {
         }
 
         @Test
-        void winByXInColumn3() {
+        void winByOInColumn3() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
@@ -272,7 +270,7 @@ public class GameMechanicsTestSuit {
         }
 
         @Test
-        void winByXDiagonally1() {
+        void winByODiagonally1() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
@@ -290,7 +288,7 @@ public class GameMechanicsTestSuit {
         }
 
         @Test
-        void winByXDiagonally2() {
+        void winByODiagonally2() {
             //Given
             GameMechanics gameMechanics = new GameMechanics();
             int winnerPlayer = 0;
@@ -361,31 +359,184 @@ public class GameMechanicsTestSuit {
         assertTrue(end);
         assertEquals(0, winnerPlayer);
     }
-    @Test
-    void fieldNotFoundExceptionTest() throws FieldNotFoundException, NotEmptyFieldException {
-        //Given
-        GameMechanics gameMechanics = new GameMechanics();
-        MockedStatic<Console> consoleMock = mockStatic(Console.class);
-        when(Console.moveReaderColumns()).thenReturn("22");
-        when(Console.moveReaderRows()).thenReturn("4");
-        //When&Then
-        assertThrows(FieldNotFoundException.class, gameMechanics::makeAMove);
+
+    //@Mock
+    //MockedStatic<Console> consoleMock = mockStatic(Console.class);
+    @Nested
+    @DisplayName("Exceptions Tests")
+    class ExceptionsTests {
+
+        @Test
+        void fieldNotFoundExceptionTest() throws FieldNotFoundException, NotEmptyFieldException {
+            //Given
+            MockedStatic<Console> consoleMock = mockStatic(Console.class);
+            GameMechanics gameMechanics = new GameMechanics();
+            when(Console.moveReaderColumns()).thenReturn("22");
+            when(Console.moveReaderRows()).thenReturn("4");
+            //When&Then
+            assertThrows(FieldNotFoundException.class, gameMechanics::makeAMove);
+            consoleMock.close();
+        }
+        @Test
+        void notEmptyFieldExceptionTest() throws FieldNotFoundException, NotEmptyFieldException {
+            //Given
+            GameMechanics gameMechanics = new GameMechanics();
+            MockedStatic<Console> consoleMock = mockStatic(Console.class);
+            when(Console.moveReaderColumns()).thenReturn("2");
+            when(Console.moveReaderRows()).thenReturn("1");
+            MockedStatic<GameMechanics> gameMechanicsMockedStatic = mockStatic(GameMechanics.class);
+            int[][] arrayOfFields = {
+                    {1, 1, 2},
+                    {2, 2, 1},
+                    {1, 2, 1},
+            };
+            when(GameMechanics.getArrayOfFields()).thenReturn(arrayOfFields);
+            //When&Then
+            assertThrows(NotEmptyFieldException.class, gameMechanics::makeAMove);
+            consoleMock.close();
+            gameMechanicsMockedStatic.close();
+        }
     }
-    @Test
-    void notEmptyFieldExceptionTest() throws FieldNotFoundException, NotEmptyFieldException {
-        //Given
-        GameMechanics gameMechanics = new GameMechanics();
-        MockedStatic<Console> consoleMock = mockStatic(Console.class);
-        when(Console.moveReaderColumns()).thenReturn("2");
-        when(Console.moveReaderRows()).thenReturn("1");
-        MockedStatic<GameMechanics> gameMechanicsMockedStatic = mockStatic(GameMechanics.class);
-        int[][] arrayOfFields = {
-                {1, 1, 2},
-                {2, 2, 1},
-                {1, 2, 1},
-        };
-        when(GameMechanics.getArrayOfFields()).thenReturn(arrayOfFields);
-        //When&Then
-        assertThrows(NotEmptyFieldException.class, gameMechanics::makeAMove);
+    @Nested
+    @DisplayName("Win for 10x10 tests")
+    class WinForBiggerMapXAndO{
+        @Test
+        void winByOInRow() {
+            //Given
+            GameMechanics gameMechanics = new GameMechanics();
+            int winnerPlayer = 0;
+            int[][] arrayOfFields = {
+                    {1, 1, 1, 1, 1, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+            };
+            MockedStatic<GameMechanics> gameMechanicsMockedStatic = mockStatic(GameMechanics.class);
+            when(GameMechanics.getBiggerArrayOfFields()).thenReturn(arrayOfFields);
+            //When&Then
+            assertEquals(1, gameMechanics.checkForVictoryForBiggerMap());
+            gameMechanicsMockedStatic.close();
+        }
+        @Test
+        void winByXInRow() {
+            //Given
+            GameMechanics gameMechanics = new GameMechanics();
+            int winnerPlayer = 0;
+            int[][] arrayOfFields = {
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 2, 2, 2, 2, 2, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+            };
+            MockedStatic<GameMechanics> gameMechanicsMockedStatic = mockStatic(GameMechanics.class);
+            when(GameMechanics.getBiggerArrayOfFields()).thenReturn(arrayOfFields);
+            //When&Then
+            assertEquals(2, gameMechanics.checkForVictoryForBiggerMap());
+            gameMechanicsMockedStatic.close();
+        }
+        @Test
+        void winByOInColumn() {
+            //Given
+            GameMechanics gameMechanics = new GameMechanics();
+            int winnerPlayer = 0;
+            int[][] arrayOfFields = {
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 1, 1, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 2, 1, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 1, 1, 0, 0 },
+                    {0, 0, 0, 0, 0, 2, 2, 2, 0, 0 },
+                    {0, 0, 0, 0, 0, 2, 2, 2, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 2, 0, 0, 0 }
+            };
+            MockedStatic<GameMechanics> gameMechanicsMockedStatic = mockStatic(GameMechanics.class);
+            when(GameMechanics.getBiggerArrayOfFields()).thenReturn(arrayOfFields);
+            //When&Then
+            assertEquals(1, gameMechanics.checkForVictoryForBiggerMap());
+            gameMechanicsMockedStatic.close();
+        }
+        @Test
+        void winByXInColumn() {
+            //Given
+            GameMechanics gameMechanics = new GameMechanics();
+            int winnerPlayer = 0;
+            int[][] arrayOfFields = {
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 1, 0, 2, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 2, 2, 0, 0 },
+                    {0, 0, 0, 1, 0, 0, 1, 2, 0, 0 },
+                    {0, 0, 0, 0, 0, 2, 2, 2, 0, 0 },
+                    {0, 0, 0, 0, 0, 2, 2, 2, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 2, 0, 0, 0 }
+            };
+            MockedStatic<GameMechanics> gameMechanicsMockedStatic = mockStatic(GameMechanics.class);
+            when(GameMechanics.getBiggerArrayOfFields()).thenReturn(arrayOfFields);
+            //When&Then
+            assertEquals(2, gameMechanics.checkForVictoryForBiggerMap());
+            gameMechanicsMockedStatic.close();
+        }
+        @Test
+        void winByODiagonally() {
+            //Given
+            GameMechanics gameMechanics = new GameMechanics();
+            int winnerPlayer = 0;
+            int[][] arrayOfFields = {
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 1, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 1, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 1, 0, 2, 0, 0, 0 },
+                    {0, 0, 0, 1, 0, 0, 1, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 2, 2, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 2, 2, 2, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 2, 0, 0, 0 }
+            };
+            MockedStatic<GameMechanics> gameMechanicsMockedStatic = mockStatic(GameMechanics.class);
+            when(GameMechanics.getBiggerArrayOfFields()).thenReturn(arrayOfFields);
+            //When&Then
+            assertEquals(1, gameMechanics.checkForVictoryForBiggerMap());
+            gameMechanicsMockedStatic.close();
+        }
+        @Test
+        void winByXDiagonally() {
+            //Given
+            GameMechanics gameMechanics = new GameMechanics();
+            int winnerPlayer = 0;
+            int[][] arrayOfFields = {
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                    {2, 0, 0, 0, 0, 0, 2, 0, 0, 0 },
+                    {0, 2, 0, 0, 0, 0, 1, 0, 0, 0 },
+                    {0, 0, 2, 0, 0, 2, 2, 0, 0, 0 },
+                    {0, 0, 0, 2, 0, 2, 2, 2, 0, 0 },
+                    {0, 0, 0, 0, 2, 0, 2, 0, 0, 0 }
+            };
+            MockedStatic<GameMechanics> gameMechanicsMockedStatic = mockStatic(GameMechanics.class);
+            when(GameMechanics.getBiggerArrayOfFields()).thenReturn(arrayOfFields);
+            //When&Then
+            assertEquals(2, gameMechanics.checkForVictoryForBiggerMap());
+            gameMechanicsMockedStatic.close();
+        }
     }
 }
