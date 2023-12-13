@@ -1,3 +1,6 @@
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Console {
@@ -5,11 +8,11 @@ public class Console {
     private static final Scanner input = new Scanner(System.in);
     static GameMechanics gameMechanics = new GameMechanics();
 
-    public static String howManyPlayers(){
+    public static String howManyPlayers() {
         System.out.println("1 Player or 2 Players? ('1'/'2')");
         return input.nextLine();
     }
-    public static String whatVersionOfGame(){
+    public static String whatVersionOfGame() {
         System.out.println("Enter '1' to play classic, or enter '2' to play extended version of the game.");
         return input.nextLine();
     }
@@ -68,20 +71,16 @@ public class Console {
                 "  |  "+ fieldsMark[9][6] + "  |  " + fieldsMark[9][7] + "  |  " + fieldsMark[9][8] + "  |  " + fieldsMark[9][9] + "  |  ");
     }
     public static void showWinner(){
-        if (gameMechanics.getWinnerPlayer()==1) {
-            System.out.println("The winner is player: " + gameMechanics.getWinnerPlayer());
-        } else if (gameMechanics.getWinnerPlayer()==2) {
-            if (GameMechanics.getNumberOfPlayers()==2) {
-                System.out.println("The winner is player: " + gameMechanics.getWinnerPlayer());
-            }else {
-                System.out.println("Computer is the winner.");
-            }
+        if (GameMechanics.getWinnerPlayer()==1) {
+            System.out.println("The winner is: " + GameMechanics.getPlayer1Name());
+        } else if (GameMechanics.getWinnerPlayer()==2) {
+            System.out.println("The winner is: " + GameMechanics.getPlayer2Name());
         } else {
             System.out.println("It's a draw.");
         }
     }
 
-    public static void showInstructions(){
+    public static void showInstructions() {
         System.out.println("To choose a field use correct Key: ");
         System.out.println("Enter 0/0 to exit the game");
         System.out.println("Key 1 - column/row 1");
@@ -92,7 +91,7 @@ public class Console {
         System.out.println("2 |2.1|2.2|2.3|");
         System.out.println("3 |3.1|3.2|3.3|");
     }
-    public static void showInstructionsForBiggerMap(){
+    public static void showInstructionsForBiggerMap() {
         System.out.println("To choose a field use correct Key: ");
         System.out.println("Enter 0/0 to exit the game");
         System.out.println("Enter 1 - column/row 1");
@@ -119,23 +118,18 @@ public class Console {
     }
 
 
-    public static void whoseTurn(){
+    public static void whoseTurn() {
         if (GameMechanics.getTurnOfPlayer()==1) {
-            System.out.println("Player's " + GameMechanics.getTurnOfPlayer() + " turn.");
+            System.out.println(GameMechanics.getPlayer1Name() + " turn.");
         } else if (GameMechanics.getTurnOfPlayer()==2) {
-            if (GameMechanics.getNumberOfPlayers()==2) {
-                System.out.println("Player's " + GameMechanics.getTurnOfPlayer() + " turn.");
-            } else {
-                System.out.println("Computer turn.");
-            }
-
+            System.out.println(GameMechanics.getPlayer2Name() + " turn.");
         }
     }
-    public static String moveReaderColumns(){
+    public static String moveReaderColumns() {
         System.out.println("Choose a column: ");
         return input.nextLine();
     }
-    public static String moveReaderRows(){
+    public static String moveReaderRows() {
         System.out.println("Choose a row: ");
         return input.nextLine();
     }
@@ -147,23 +141,35 @@ public class Console {
         System.out.println(s);
     }
     public static void showPoints() {
-        if (GameMechanics.getNumberOfPlayers() == 1) {
-            System.out.println("Player 1 points: " + GameMechanics.getPlayer1Points() + "\nPlayer 2 points: "
+        System.out.println("Round: " + GameMechanics.getRound());
+        System.out.println(GameMechanics.getPlayer1Name() + " points: " + GameMechanics.getPlayer1Points() + "\n" + GameMechanics.getPlayer2Name() +" points: "
                     + GameMechanics.getPlayer2Points());
-        } else if (GameMechanics.getNumberOfPlayers() == 2){
-            System.out.println("Player 1 points: " + GameMechanics.getPlayer1Points() + "\nComputer points: "
-                    + GameMechanics.getPlayer2Points());
-        }
     }
-    public static String playAgain(){
+    public static String sayYourName1() {
+        System.out.println("Player 1 name: ");
+        return input.nextLine();
+    }
+    public static String sayYourName2(){
+        System.out.println("Player 2 name: ");
+        return input.nextLine();
+    }
+
+    public static String playAgain() {
         System.out.println("Do You want to play again? (1-YES/2-NO)");
         return input.nextLine();
     }
-    public static void farewell(){
+    public static void farewell() {
         System.out.println("Until next time...");
     }
-
-
-
+    public static void showRanking(){
+        System.out.println("Players / Wins");
+        Map<String, Integer> map = gameMechanics.getMap();
+        gameMechanics.loadMap();
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            System.out.println("Player: " + key + ", Wins: " + value);
+        }
+    }
 
 }

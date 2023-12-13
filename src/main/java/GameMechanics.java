@@ -1,4 +1,7 @@
+import java.io.*;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.random.RandomGenerator;
 
@@ -14,6 +17,9 @@ public class GameMechanics {
     private static int player1Points;
     private static int player2Points;
     private static int versionOfGame=0;
+    private static String player1Name;
+    private static String player2Name;
+    private static int round=0;
 
 
 
@@ -35,6 +41,16 @@ public class GameMechanics {
         }catch (NumberFormatException e){
             Console.numberFormatExceptionMessage();
             howManyPlayers();
+        }
+    }
+    public void Player1Name(){
+        player1Name=Console.sayYourName1();
+    }
+    public void Player2Name(){
+        if (numberOfPlayers==2) {
+            player2Name = Console.sayYourName2();
+        } else if (numberOfPlayers==1) {
+            player2Name = "Computer";
         }
     }
     public void whatVersionOfGame() throws InvalidVersionNumberException {
@@ -225,6 +241,7 @@ public class GameMechanics {
     public void multiGameLoop(){
         while (!totalEnd) {
             while (!end) {
+                round++;
                 setNewArray();
                 GameMechanics.setTurnOfPlayer(1);
                 if (versionOfGame==1) {
@@ -235,6 +252,9 @@ public class GameMechanics {
                 singleGameLoop();
                 Console.showWinner();
                 addingPoint();
+                loadMap();
+                saveStats();
+                saveMap();
                 Console.showPoints();
             }
             try {
@@ -293,12 +313,65 @@ public class GameMechanics {
     public static int getVersionOfGame() {
         return versionOfGame;
     }
+    public static String getPlayer1Name(){
+        return player1Name;
+    }
+    public static String getPlayer2Name(){
+        return player2Name;
+    }
 
     public static boolean isEnd() {
         return end;
     }
 
+    public static int getRound() {
+        return round;
+    }
+
     public static void setTurnOfPlayer(int turnOfPlayer) {
         GameMechanics.turnOfPlayer = turnOfPlayer;
+    }
+
+    File savedHashMaps = new File("ranking.list");
+    Map<String, Integer> map = new HashMap<>();
+
+    public void saveMap() {
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream (new FileOutputStream(savedHashMaps));
+            oos.writeObject(map);
+            oos.close();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }
+
+    public void loadMap() {
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(savedHashMaps));
+            Object readMap = ois.readObject();
+            if (readMap instanceof HashMap) {
+                map.putAll((HashMap) readMap);
+            }
+            ois.close();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }
+
+    public void saveStats(){
+        if (map.containsKey(player1Name)) {
+            map.put(player1Name, player1Points + map.get(player1Name));
+        } else {
+            map.put(player1Name, player1Points);
+        }
+        if (map.containsKey(player2Name)) {
+            map.put(player2Name, player2Points + map.get(player2Name));
+        } else {
+            map.put(player2Name, player2Points);
+        }
+    }
+
+    public Map<String, Integer> getMap() {
+        return map;
     }
 }

@@ -11,6 +11,8 @@ public class TheGame {
                 game();
             }
         }
+        gameMechanics.Player1Name();
+        gameMechanics.Player2Name();
         if (GameMechanics.getVersionOfGame() == 0) {
             try {
                 gameMechanics.whatVersionOfGame();
@@ -22,6 +24,7 @@ public class TheGame {
         gameMechanics.multiGameLoop();
         if (GameMechanics.isEnd()) {
             Console.farewell();
+            Console.showRanking();
         }
     }
 }
