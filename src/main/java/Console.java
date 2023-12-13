@@ -1,5 +1,3 @@
-import java.io.File;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -12,6 +10,7 @@ public class Console {
         System.out.println("1 Player or 2 Players? ('1'/'2')");
         return input.nextLine();
     }
+
     public static String whatVersionOfGame() {
         System.out.println("Enter '1' to play classic, or enter '2' to play extended version of the game.");
         return input.nextLine();
@@ -22,7 +21,7 @@ public class Console {
         int[][] fields = GameMechanics.getArrayOfFields();
         for (int i = 0; i < fields.length; i++) {
             for (int j = 0; j < fields[i].length; j++) {
-                fieldsMark[i][j]=" ";
+                fieldsMark[i][j] = " ";
                 if (fields[i][j] == 1) {
                     fieldsMark[i][j] = "O";
                 } else if (fields[i][j] == 2) {
@@ -35,12 +34,13 @@ public class Console {
         System.out.println("2 | " + fieldsMark[1][0] + " | " + fieldsMark[1][1] + " | " + fieldsMark[1][2] + " |");
         System.out.println("3 | " + fieldsMark[2][0] + " | " + fieldsMark[2][1] + " | " + fieldsMark[2][2] + " |");
     }
+
     public static void updateConsoleForBiggerMap() {
         String[][] fieldsMark = new String[10][10];
         int[][] fields = GameMechanics.getBiggerArrayOfFields();
         for (int i = 0; i < fields.length; i++) {
             for (int j = 0; j < fields[i].length; j++) {
-                fieldsMark[i][j]=" ";
+                fieldsMark[i][j] = " ";
                 if (fields[i][j] == 1) {
                     fieldsMark[i][j] = "O";
                 } else if (fields[i][j] == 2) {
@@ -49,31 +49,32 @@ public class Console {
             }
         }
         System.out.println("  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | 10  |");
-        System.out.println("1 |  " + fieldsMark[0][0] + "  |  " + fieldsMark[0][1] + "  |  " + fieldsMark[0][2] + "  |  "+ fieldsMark[0][3] + "  |  " + fieldsMark[0][4] + "  |  " + fieldsMark[0][5] +
-                "  |  "+ fieldsMark[0][6] + "  |  " + fieldsMark[0][7] + "  |  " + fieldsMark[0][8] + "  |  " + fieldsMark[0][9] + "  |  ");
-        System.out.println("2 |  " + fieldsMark[1][0] + "  |  " + fieldsMark[1][1] + "  |  " + fieldsMark[1][2] + "  |  "+ fieldsMark[1][3] + "  |  " + fieldsMark[1][4] + "  |  " + fieldsMark[1][5] +
-                "  |  "+ fieldsMark[1][6] + "  |  " + fieldsMark[1][7] + "  |  " + fieldsMark[1][8] + "  |  " + fieldsMark[1][9] + "  |  ");
-        System.out.println("3 |  " + fieldsMark[2][0] + "  |  " + fieldsMark[2][1] + "  |  " + fieldsMark[2][2] + "  |  "+ fieldsMark[2][3] + "  |  " + fieldsMark[2][4] + "  |  " + fieldsMark[2][5] +
-                "  |  "+ fieldsMark[2][6] + "  |  " + fieldsMark[2][7] + "  |  " + fieldsMark[2][8] + "  |  " + fieldsMark[2][9] + "  |  ");
-        System.out.println("4 |  " + fieldsMark[3][0] + "  |  " + fieldsMark[3][1] + "  |  " + fieldsMark[3][2] + "  |  "+ fieldsMark[3][3] + "  |  " + fieldsMark[3][4] + "  |  " + fieldsMark[3][5] +
-                "  |  "+ fieldsMark[3][6] + "  |  " + fieldsMark[3][7] + "  |  " + fieldsMark[3][8] + "  |  " + fieldsMark[3][9] + "  |  ");
-        System.out.println("5 |  " + fieldsMark[4][0] + "  |  " + fieldsMark[4][1] + "  |  " + fieldsMark[4][2] + "  |  "+ fieldsMark[4][3] + "  |  " + fieldsMark[4][4] + "  |  " + fieldsMark[4][5] +
-                "  |  "+ fieldsMark[4][6] + "  |  " + fieldsMark[4][7] + "  |  " + fieldsMark[4][8] + "  |  " + fieldsMark[4][9] + "  |  ");
-        System.out.println("6 |  " + fieldsMark[5][0] + "  |  " + fieldsMark[5][1] + "  |  " + fieldsMark[5][2] + "  |  "+ fieldsMark[5][3] + "  |  " + fieldsMark[5][4] + "  |  " + fieldsMark[5][5] +
-                "  |  "+ fieldsMark[5][6] + "  |  " + fieldsMark[5][7] + "  |  " + fieldsMark[5][8] + "  |  " + fieldsMark[5][9] + "  |  ");
-        System.out.println("7 |  " + fieldsMark[6][0] + "  |  " + fieldsMark[6][1] + "  |  " + fieldsMark[6][2] + "  |  "+ fieldsMark[6][3] + "  |  " + fieldsMark[6][4] + "  |  " + fieldsMark[6][5] +
-                "  |  "+ fieldsMark[6][6] + "  |  " + fieldsMark[6][7] + "  |  " + fieldsMark[6][8] + "  |  " + fieldsMark[6][9] + "  |  ");
-        System.out.println("8 |  " + fieldsMark[7][0] + "  |  " + fieldsMark[7][1] + "  |  " + fieldsMark[7][2] + "  |  "+ fieldsMark[7][3] + "  |  " + fieldsMark[7][4] + "  |  " + fieldsMark[7][5] +
-                "  |  "+ fieldsMark[7][6] + "  |  " + fieldsMark[7][7] + "  |  " + fieldsMark[7][8] + "  |  " + fieldsMark[7][9] + "  |  ");
-        System.out.println("9 |  " + fieldsMark[8][0] + "  |  " + fieldsMark[8][1] + "  |  " + fieldsMark[8][2] + "  |  "+ fieldsMark[8][3] + "  |  " + fieldsMark[8][4] + "  |  " + fieldsMark[8][5] +
-                "  |  "+ fieldsMark[8][6] + "  |  " + fieldsMark[8][7] + "  |  " + fieldsMark[8][8] + "  |  " + fieldsMark[8][9] + "  |  ");
-        System.out.println("10|  " + fieldsMark[9][0] + "  |  " + fieldsMark[9][1] + "  |  " + fieldsMark[9][2] + "  |  "+ fieldsMark[9][3] + "  |  " + fieldsMark[9][4] + "  |  " + fieldsMark[9][5] +
-                "  |  "+ fieldsMark[9][6] + "  |  " + fieldsMark[9][7] + "  |  " + fieldsMark[9][8] + "  |  " + fieldsMark[9][9] + "  |  ");
+        System.out.println("1 |  " + fieldsMark[0][0] + "  |  " + fieldsMark[0][1] + "  |  " + fieldsMark[0][2] + "  |  " + fieldsMark[0][3] + "  |  " + fieldsMark[0][4] + "  |  " + fieldsMark[0][5] +
+                "  |  " + fieldsMark[0][6] + "  |  " + fieldsMark[0][7] + "  |  " + fieldsMark[0][8] + "  |  " + fieldsMark[0][9] + "  |  ");
+        System.out.println("2 |  " + fieldsMark[1][0] + "  |  " + fieldsMark[1][1] + "  |  " + fieldsMark[1][2] + "  |  " + fieldsMark[1][3] + "  |  " + fieldsMark[1][4] + "  |  " + fieldsMark[1][5] +
+                "  |  " + fieldsMark[1][6] + "  |  " + fieldsMark[1][7] + "  |  " + fieldsMark[1][8] + "  |  " + fieldsMark[1][9] + "  |  ");
+        System.out.println("3 |  " + fieldsMark[2][0] + "  |  " + fieldsMark[2][1] + "  |  " + fieldsMark[2][2] + "  |  " + fieldsMark[2][3] + "  |  " + fieldsMark[2][4] + "  |  " + fieldsMark[2][5] +
+                "  |  " + fieldsMark[2][6] + "  |  " + fieldsMark[2][7] + "  |  " + fieldsMark[2][8] + "  |  " + fieldsMark[2][9] + "  |  ");
+        System.out.println("4 |  " + fieldsMark[3][0] + "  |  " + fieldsMark[3][1] + "  |  " + fieldsMark[3][2] + "  |  " + fieldsMark[3][3] + "  |  " + fieldsMark[3][4] + "  |  " + fieldsMark[3][5] +
+                "  |  " + fieldsMark[3][6] + "  |  " + fieldsMark[3][7] + "  |  " + fieldsMark[3][8] + "  |  " + fieldsMark[3][9] + "  |  ");
+        System.out.println("5 |  " + fieldsMark[4][0] + "  |  " + fieldsMark[4][1] + "  |  " + fieldsMark[4][2] + "  |  " + fieldsMark[4][3] + "  |  " + fieldsMark[4][4] + "  |  " + fieldsMark[4][5] +
+                "  |  " + fieldsMark[4][6] + "  |  " + fieldsMark[4][7] + "  |  " + fieldsMark[4][8] + "  |  " + fieldsMark[4][9] + "  |  ");
+        System.out.println("6 |  " + fieldsMark[5][0] + "  |  " + fieldsMark[5][1] + "  |  " + fieldsMark[5][2] + "  |  " + fieldsMark[5][3] + "  |  " + fieldsMark[5][4] + "  |  " + fieldsMark[5][5] +
+                "  |  " + fieldsMark[5][6] + "  |  " + fieldsMark[5][7] + "  |  " + fieldsMark[5][8] + "  |  " + fieldsMark[5][9] + "  |  ");
+        System.out.println("7 |  " + fieldsMark[6][0] + "  |  " + fieldsMark[6][1] + "  |  " + fieldsMark[6][2] + "  |  " + fieldsMark[6][3] + "  |  " + fieldsMark[6][4] + "  |  " + fieldsMark[6][5] +
+                "  |  " + fieldsMark[6][6] + "  |  " + fieldsMark[6][7] + "  |  " + fieldsMark[6][8] + "  |  " + fieldsMark[6][9] + "  |  ");
+        System.out.println("8 |  " + fieldsMark[7][0] + "  |  " + fieldsMark[7][1] + "  |  " + fieldsMark[7][2] + "  |  " + fieldsMark[7][3] + "  |  " + fieldsMark[7][4] + "  |  " + fieldsMark[7][5] +
+                "  |  " + fieldsMark[7][6] + "  |  " + fieldsMark[7][7] + "  |  " + fieldsMark[7][8] + "  |  " + fieldsMark[7][9] + "  |  ");
+        System.out.println("9 |  " + fieldsMark[8][0] + "  |  " + fieldsMark[8][1] + "  |  " + fieldsMark[8][2] + "  |  " + fieldsMark[8][3] + "  |  " + fieldsMark[8][4] + "  |  " + fieldsMark[8][5] +
+                "  |  " + fieldsMark[8][6] + "  |  " + fieldsMark[8][7] + "  |  " + fieldsMark[8][8] + "  |  " + fieldsMark[8][9] + "  |  ");
+        System.out.println("10|  " + fieldsMark[9][0] + "  |  " + fieldsMark[9][1] + "  |  " + fieldsMark[9][2] + "  |  " + fieldsMark[9][3] + "  |  " + fieldsMark[9][4] + "  |  " + fieldsMark[9][5] +
+                "  |  " + fieldsMark[9][6] + "  |  " + fieldsMark[9][7] + "  |  " + fieldsMark[9][8] + "  |  " + fieldsMark[9][9] + "  |  ");
     }
-    public static void showWinner(){
-        if (GameMechanics.getWinnerPlayer()==1) {
+
+    public static void showWinner() {
+        if (GameMechanics.getWinnerPlayer() == 1) {
             System.out.println("The winner is: " + GameMechanics.getPlayer1Name());
-        } else if (GameMechanics.getWinnerPlayer()==2) {
+        } else if (GameMechanics.getWinnerPlayer() == 2) {
             System.out.println("The winner is: " + GameMechanics.getPlayer2Name());
         } else {
             System.out.println("It's a draw.");
@@ -91,6 +92,7 @@ public class Console {
         System.out.println("2 |2.1|2.2|2.3|");
         System.out.println("3 |3.1|3.2|3.3|");
     }
+
     public static void showInstructionsForBiggerMap() {
         System.out.println("To choose a field use correct Key: ");
         System.out.println("Enter 0/0 to exit the game");
@@ -119,37 +121,43 @@ public class Console {
 
 
     public static void whoseTurn() {
-        if (GameMechanics.getTurnOfPlayer()==1) {
+        if (GameMechanics.getTurnOfPlayer() == 1) {
             System.out.println(GameMechanics.getPlayer1Name() + " turn.");
-        } else if (GameMechanics.getTurnOfPlayer()==2) {
+        } else if (GameMechanics.getTurnOfPlayer() == 2) {
             System.out.println(GameMechanics.getPlayer2Name() + " turn.");
         }
     }
+
     public static String moveReaderColumns() {
         System.out.println("Choose a column: ");
         return input.nextLine();
     }
+
     public static String moveReaderRows() {
         System.out.println("Choose a row: ");
         return input.nextLine();
     }
 
-    public static void numberFormatExceptionMessage(){
+    public static void numberFormatExceptionMessage() {
         System.out.println("You have to choose a number.");
     }
-    public static void exceptionMessage(String s){
+
+    public static void exceptionMessage(String s) {
         System.out.println(s);
     }
+
     public static void showPoints() {
         System.out.println("Round: " + GameMechanics.getRound());
-        System.out.println(GameMechanics.getPlayer1Name() + " points: " + GameMechanics.getPlayer1Points() + "\n" + GameMechanics.getPlayer2Name() +" points: "
-                    + GameMechanics.getPlayer2Points());
+        System.out.println(GameMechanics.getPlayer1Name() + " points: " + GameMechanics.getPlayer1Points() + "\n" + GameMechanics.getPlayer2Name() + " points: "
+                + GameMechanics.getPlayer2Points());
     }
+
     public static String sayYourName1() {
         System.out.println("Player 1 name: ");
         return input.nextLine();
     }
-    public static String sayYourName2(){
+
+    public static String sayYourName2() {
         System.out.println("Player 2 name: ");
         return input.nextLine();
     }
@@ -158,18 +166,21 @@ public class Console {
         System.out.println("Do You want to play again? (1-YES/2-NO)");
         return input.nextLine();
     }
+
     public static void farewell() {
         System.out.println("Until next time...");
     }
-    public static void showRanking(){
+
+    public static void showRanking() {
         System.out.println("Players / Wins");
         Map<String, Integer> map = gameMechanics.getMap();
         gameMechanics.loadMap();
-        for (Map.Entry<String, Integer> entry : map.entrySet()) {
-            String key = entry.getKey();
-            Integer value = entry.getValue();
-            System.out.println("Player: " + key + ", Wins: " + value);
-        }
+
+        map.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .forEach(entry -> {
+                    System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+                });
     }
 
 }
