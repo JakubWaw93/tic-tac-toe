@@ -140,9 +140,6 @@ public class Console {
         return input.nextLine();
     }
 
-    /*public static void sayComputerMove(){
-        System.out.println("Computer turn.");
-    }*/
     public static void numberFormatExceptionMessage(){
         System.out.println("You have to choose a number.");
     }

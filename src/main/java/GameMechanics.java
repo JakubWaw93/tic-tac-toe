@@ -37,7 +37,7 @@ public class GameMechanics {
             howManyPlayers();
         }
     }
-    public void whatVersionOfGame() throws InvalidVersionNumberException{
+    public void whatVersionOfGame() throws InvalidVersionNumberException {
         try{
             int version = Integer.parseInt(Console.whatVersionOfGame());
             if (version == 1 || version == 2) {
@@ -53,7 +53,7 @@ public class GameMechanics {
 
     public void makeAMove() throws FieldNotFoundException, NotEmptyFieldException {
         int [][] gameMap=null;
-        if (getVersionOfGame()==1){
+        if (getVersionOfGame()==1) {
             gameMap=getArrayOfFields();
         } else if (getVersionOfGame()==2) {
             gameMap=getBiggerArrayOfFields();
@@ -69,6 +69,7 @@ public class GameMechanics {
                 }
             }else if (moveI == -1 || moveJ ==-1) {
                 end = true;
+                totalEnd = true;
             } else {
                 throw new FieldNotFoundException("There is no such field!");
             }
@@ -78,7 +79,6 @@ public class GameMechanics {
         }
     }
     public void computerMove(){
-        //Console.sayComputerMove();
         RandomGenerator random = new Random();
         boolean emptyField = false;
         while (!emptyField){
@@ -246,19 +246,21 @@ public class GameMechanics {
 
     }
     public void playAgainMechanics() throws PlayAgainWrongOptionException{
-        try {
-            int playerChoice = Integer.parseInt(Console.playAgain());
-            if (playerChoice == 1) {
-                winnerPlayer = 0;
-                end = false;
-            } else if (playerChoice == 2) {
-                totalEnd = true;
-            } else {
-                throw new PlayAgainWrongOptionException("Press '1' to play again or '2' to end.");
+        if (!totalEnd) {
+            try {
+                int playerChoice = Integer.parseInt(Console.playAgain());
+                if (playerChoice == 1) {
+                    winnerPlayer = 0;
+                    end = false;
+                } else if (playerChoice == 2) {
+                    totalEnd = true;
+                } else {
+                    throw new PlayAgainWrongOptionException("Press '1' to play again or '2' to end.");
+                }
+            } catch (NumberFormatException e) {
+                Console.numberFormatExceptionMessage();
+                playAgainMechanics();
             }
-        }catch (NumberFormatException e){
-            Console.numberFormatExceptionMessage();
-            playAgainMechanics();
         }
     }
     public void setNewArray() {
