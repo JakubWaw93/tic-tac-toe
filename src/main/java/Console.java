@@ -179,7 +179,7 @@ public class Console {
         map.entrySet().stream()
                 .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                 .forEach(entry -> {
-                    System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+                    System.out.println("Player: " + entry.getKey() + ", Wins: " + entry.getValue());
                 });
     }
 

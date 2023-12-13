@@ -94,7 +94,7 @@ public class GameMechanics {
             makeAMove();
         }
     }
-    public void computerMove(){
+    public void computerMove() {
         RandomGenerator random = new Random();
         boolean emptyField = false;
         while (!emptyField){
@@ -127,7 +127,7 @@ public class GameMechanics {
             }
         }
     }
-    public void addingPoint(){
+    public void addingPoint() {
         if (end){
             if (winnerPlayer==1) {
                 player1Points++;
@@ -136,7 +136,7 @@ public class GameMechanics {
             }
         }
     }
-    public void changeTurn(){
+    public void changeTurn() {
         if (turnOfPlayer==1) {
             turnOfPlayer = 2;
         } else if (turnOfPlayer==2) {
@@ -198,7 +198,7 @@ public class GameMechanics {
         }return winnerPlayer;
     }
 
-    public void checkForFullMap(){
+    public void checkForFullMap() {
         int[][]arrayOfFields=null;
         if (versionOfGame==1){
             arrayOfFields=getArrayOfFields();
@@ -217,11 +217,11 @@ public class GameMechanics {
             end = true;
         }
     }
-    public void singleGameLoop(){
+    public void singleGameLoop() {
         while (!isEnd()){
             try {
                 arrayOfMoves();
-            } catch (FieldNotFoundException | NotEmptyFieldException e){
+            } catch (FieldNotFoundException | NotEmptyFieldException e) {
                 Console.exceptionMessage(e.getMessage());
                 singleGameLoop();
             }
@@ -238,7 +238,7 @@ public class GameMechanics {
             }
         }
     }
-    public void multiGameLoop(){
+    public void multiGameLoop() {
         while (!totalEnd) {
             while (!end) {
                 round++;
@@ -265,7 +265,7 @@ public class GameMechanics {
         }
 
     }
-    public void playAgainMechanics() throws PlayAgainWrongOptionException{
+    public void playAgainMechanics() throws PlayAgainWrongOptionException {
         if (!totalEnd) {
             try {
                 int playerChoice = Integer.parseInt(Console.playAgain());
